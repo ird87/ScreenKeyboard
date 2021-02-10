@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScreenKeyboard width="480" locationX="0" locationY="0" languare="ru">
+	<EntryField height="30">
+		<row>
+			<field type="line" size="11.0"></field>
+			<button type="apply" text="" icon="apply" size="1.0"></button>
+		</row>
+	</EntryField>
+	<InputBlock height = "120">
+		<LanguareBlock>
+			<row>
+				<button type="input" value1="й" value2="Й" size="1.0"></button>
+				<button type="input" value1="ц" value2="Ц" size="1.0"></button>
+				<button type="input" value1="у" value2="У" size="1.0"></button>
+				<button type="input" value1="к" value2="К" size="1.0"></button>
+				<button type="input" value1="е" value2="Е" size="1.0"></button>
+				<button type="input" value1="н" value2="Н" size="1.0"></button>
+				<button type="input" value1="г" value2="Г" size="1.0"></button>
+				<button type="input" value1="ш" value2="Ш" size="1.0"></button>
+				<button type="input" value1="щ" value2="Щ" size="1.0"></button>
+				<button type="input" value1="з" value2="З" size="1.0"></button>
+				<button type="input" value1="х" value2="Х" size="1.0"></button>
+				<button type="input" value1="ъ" value2="Ъ" size="1.0"></button>	
+			</row>                                                
+			<row>                                                 
+				<button type="input" value1="ф" value2="Ф" size="1.0"></button>
+				<button type="input" value1="ы" value2="Ы" size="1.0"></button>
+				<button type="input" value1="в" value2="В" size="1.0"></button>
+				<button type="input" value1="а" value2="А" size="1.0"></button>
+				<button type="input" value1="п" value2="П" size="1.0"></button>
+				<button type="input" value1="р" value2="Р" size="1.0"></button>
+				<button type="input" value1="о" value2="О" size="1.0"></button>
+				<button type="input" value1="л" value2="Л" size="1.0"></button>
+				<button type="input" value1="д" value2="Д" size="1.0"></button>
+				<button type="input" value1="ж" value2="Ж" size="1.0"></button>
+				<button type="input" value1="э" value2="Э" size="1.0"></button>
+				<button type="input" value1="ё" value2="Ё" size="1.0"></button>	
+			</row>                                                
+			<row>                                                 
+				<button type="input" value1="я" value2="Я" size="1.2"></button>
+				<button type="input" value1="ч" value2="Ч" size="1.2"></button>
+				<button type="input" value1="с" value2="С" size="1.2"></button>
+				<button type="input" value1="м" value2="М" size="1.2"></button>
+				<button type="input" value1="и" value2="И" size="1.2"></button>
+				<button type="input" value1="т" value2="Т" size="1.2"></button>
+				<button type="input" value1="ь" value2="Ь" size="1.2"></button>
+				<button type="input" value1="б" value2="Б" size="1.2"></button>
+				<button type="input" value1="ю" value2="Ю" size="1.2"></button>
+				<button type="input" value1="?" value2="/" size="1.2"></button>
+			</row>	
+		</LanguareBlock>
+		<NumbersKeyboard>
+			<row>                                                 
+				<button type="input" value1="1" value2="¹" size="1.2"></button>
+				<button type="input" value1="2" value2="²" size="1.2"></button>
+				<button type="input" value1="3" value2="³" size="1.2"></button>
+				<button type="input" value1="4" value2="⁴" size="1.2"></button>
+				<button type="input" value1="5" value2="⁵" size="1.2"></button>
+				<button type="input" value1="6" value2="⁶" size="1.2"></button>
+				<button type="input" value1="7" value2="⁷" size="1.2"></button>
+				<button type="input" value1="8" value2="⁸" size="1.2"></button>
+				<button type="input" value1="9" value2="⁹" size="1.2"></button>
+				<button type="input" value1="0" value2="⁰" size="1.2"></button>	
+			</row>	
+			<row>                                                 
+				<button type="input" value1="@" value2="~" size="1.2"></button>
+				<button type="input" value1="#" value2="№" size="1.2"></button>
+				<button type="input" value1="$" value2="₽" size="1.2"></button>
+				<button type="input" value1="_" value2="＿" size="1.2"></button>
+				<button type="input" value1="&amp;" value2="√" size="1.2"></button>
+				<button type="input" value1="-" value2="—" size="1.2"></button>
+				<button type="input" value1="+" value2="±" size="1.2"></button>
+				<button type="input" value1="(" value2="∑" size="1.2"></button>
+				<button type="input" value1=")" value2="≠" size="1.2"></button>
+				<button type="input" value1="/" value2="\" size="1.2"></button>
+			</row>	
+			<row>                                                 
+				<button type="input" value1="*" value2="°" size="1.2"></button>
+				<button type="input" value1="&quot;" value2="%" size="1.2"></button>
+				<button type="input" value1="&apos;" value2="&lt;" size="1.2"></button>
+				<button type="input" value1=":" value2="&gt;" size="1.2"></button>
+				<button type="input" value1=";" value2="|" size="1.2"></button>
+				<button type="input" value1="!" value2="^" size="1.2"></button>
+				<button type="input" value1="?" value2="[" size="1.2"></button>
+				<button type="input" value1="=" value2="]" size="1.2"></button>
+				<button type="input" value1="," value2="{" size="1.2"></button>
+				<button type="input" value1="." value2="}" size="1.2"></button>	
+			</row>	
+		</NumbersKeyboard>
+	</InputBlock>
+	<GeneralButtons height = "30">
+		<row>
+			<button name="shift" type="turn" turnTarget="uppercase" textTurnOn="" textTurnOff="" iconTurnOn ="shiftOn" iconTurnOff ="shiftOff" size="1.0"></button>
+			<button name="charToNum" type="turn" turnTarget="numbers" textTurnOn="" textTurnOff="" iconTurnOn ="numbersOn" iconTurnOff ="numbersOff" size="1.0"></button>
+			<button name="languare" type="languare" size="1.0"></button>
+			<button name="space" type="input" value=" " size="4.0"></button>
+			<button name="x1" type="input" value="@" size="1.0"></button>
+			<button name="x2" type="input" value="," size="1.0"></button>
+			<button name="x3" type="input" value="." size="1.0"></button>
+			<button name="backspace" type="action" action="backspace" size="1.0"></button>
+			<button name="enter" type="action" action="enter" size="1.0"></button>
+		</row>
+	</GeneralButtons>
+</ScreenKeyboard>
