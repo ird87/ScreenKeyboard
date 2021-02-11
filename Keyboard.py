@@ -10,9 +10,11 @@ class Keyboard(object):
         self.height=0
         self.location_x =0
         self.location_y=0
+        self.language=""
+        self.shift = False
+        self.numbers_keyboard = False
         self.entry_field = {}
         self.input_block = {}
-        self.numbers_keyboard = {}
         self.general_buttons = {}
 
     def get_languages(self):
@@ -23,8 +25,10 @@ class Keyboard(object):
         return files
 
     def load_language(self, language):
-        if language in self.get_languages():
-            file = os.path.join(self.languages_path, language)
+        file="{0}.xml".format(language)
+        if file in self.get_languages():
+            self.language = language
+            file = os.path.join(self.languages_path, file)
             doc = ET.parse(file)
             root = doc.getroot()
             self.width = int(root.get("width"))
@@ -66,9 +70,8 @@ class Keyboard(object):
 
     def get_el(self, el):
         result={}
-        print(el.tag)
         if el.tag == "button":
-            result["el"] = "button"
+            result["control"] = "button"
             if el.get("type") == "apply":                
                 result["type"] = "apply"
                 result["text"] = el.get("text")
@@ -102,7 +105,7 @@ class Keyboard(object):
                 result["action"] = el.get("action")   
                 result["size"] = el.get("size")
         elif el.tag == "field":
-            result["el"] = "field"
+            result["control"] = "field"
             if el.get("type") == "line":
                 result["type"] = "line"
                 result["size"] = el.get("size")
@@ -110,3 +113,12 @@ class Keyboard(object):
                 result["type"] = "multiline"
                 result["size"] = el.get("size")
         return result
+
+    def set_shift(self, value):
+        self.shift = value
+
+    def set_numbers_keyboard(self, value):
+        self.numbers_keyboard = value
+
+    def set_languare(self, value):
+        self.languare = value
