@@ -1,6 +1,16 @@
 import os
 from lxml import etree as ET
 
+def icon_path(name):
+    file = os.path.join(os.getcwd(), "attachments", name)  
+    return file
+
+def file_or_empty(file): 
+    if os.path.isfile(icon_path(file)):
+        return file
+    else:
+        return ""
+
 class Keyboard(object):
     """docstring for ClassName"""
     def __init__(self):
@@ -8,11 +18,11 @@ class Keyboard(object):
         self.languages_path = os.path.join(os.getcwd(), "languages")  
         self.width=0
         self.height=0
-        self.location_x =0
-        self.location_y=0
+        self.location_x = 0
+        self.location_y = 0
         self.language=""
-        self.shift = False
-        self.numbers_keyboard = False
+        self.uppercase = False
+        self.numbers = False
         self.entry_field = {}
         self.input_block = {}
         self.general_buttons = {}
@@ -67,7 +77,6 @@ class Keyboard(object):
                 result.append(self.get_el(el))
         return result
 
-
     def get_el(self, el):
         result={}
         if el.tag == "button":
@@ -75,50 +84,63 @@ class Keyboard(object):
             if el.get("type") == "apply":                
                 result["type"] = "apply"
                 result["text"] = el.get("text")
-                result["icon"] = el.get("icon")
-                result["size"] = el.get("size")
+                result["icon"] = file_or_empty(el.get("icon"))
+                result["size"] = float(el.get("size"))
             elif el.get("type") == "input":
                 result["type"] = "input"
-                result["value1"] = el.get("value1")
-                result["value2"] = el.get("value2")
-                result["size"] = el.get("size")
+                if el.get("value"):
+                    result["value1"] = el.get("value")
+                    result["value2"] = el.get("value")
+                else:
+                    result["value1"] = el.get("value1")
+                    result["value2"] = el.get("value2")
+                result["size"] = float(el.get("size"))
             elif el.get("type") == "turn":
                 result["type"] = "turn"
                 result["name"] = el.get("name")
-                iconTurnOn = el.get("iconTurnOn")
-                iconTurnOff = el.get("iconTurnOff")
-                if iconTurnOn and iconTurnOff:
-                    result["textTurnOn"] = iconTurnOn
-                    result["textTurnOff"] = iconTurnOff
-                else:
-                    result["iconTurnOn"] = el.get("iconTurnOn")
-                    result["iconTurnOff"] = el.get("iconTurnOff")
+                result["iconTurnOn"] = file_or_empty(el.get("iconTurnOn"))
+                result["iconTurnOff"] = file_or_empty(el.get("iconTurnOff"))
+                result["textTurnOn"] = el.get("textTurnOn")
+                result["textTurnOff"] = el.get("textTurnOff")
+                    
                 result["turnTarget"] = el.get("turnTarget")                
-                result["size"] = el.get("size")
+                result["size"] = float(el.get("size"))
             elif el.get("type") == "languare":
                 result["type"] = "languare"
+                result["text"] = el.get("text")
+                result["icon"] = file_or_empty(el.get("icon"))
                 result["name"] = el.get("name")                
-                result["size"] = el.get("size")
+                result["size"] = float(el.get("size"))
             elif el.get("type") == "action":
                 result["type"] = "action"
-                result["name"] = el.get("name")                
+                result["name"] = el.get("name")  
+                result["text"] = el.get("text")
+                result["icon"] = file_or_empty(el.get("icon"))              
                 result["action"] = el.get("action")   
-                result["size"] = el.get("size")
+                result["size"] = float(el.get("size"))
         elif el.tag == "field":
             result["control"] = "field"
             if el.get("type") == "line":
                 result["type"] = "line"
-                result["size"] = el.get("size")
+                result["size"] = float(el.get("size"))
             elif el.get("type") == "multiline":                
                 result["type"] = "multiline"
-                result["size"] = el.get("size")
+                result["size"] = float(el.get("size"))
         return result
 
-    def set_shift(self, value):
-        self.shift = value
+    def switch_case(self):
+        if self.uppercase:
+            self.uppercase = False
+        else:
+            self.uppercase = True
 
-    def set_numbers_keyboard(self, value):
-        self.numbers_keyboard = value
+    def switch_input_keyboard(self):
+        if self.numbers:
+            self.numbers = False
+            self.uppercase = False
+        else:
+            self.numbers = True
+            self.uppercase = False
 
-    def set_languare(self, value):
+    def switch_languare(self, value):
         self.languare = value
