@@ -13,43 +13,57 @@ def file_or_empty(file):
 
 class Keyboard(object):
     """docstring for ClassName"""
-    def __init__(self):
+    def __init__(self, w, h1, h2, h3, lx, ly, multiline):
         super(Keyboard, self).__init__()
         self.languages_path = os.path.join(os.getcwd(), "languages")  
-        self.width=0
+        self.width=w
         self.height=0
-        self.location_x = 0
-        self.location_y = 0
-        self.language=""
+        self.h1 = h1
+        self.h2 = h2
+        self.h3 = h3
+        self.location_x = lx
+        self.location_y = ly
         self.uppercase = False
         self.numbers = False
+        self.multiline = multiline
         self.entry_field = {}
         self.input_block = {}
         self.general_buttons = {}
+        self.language=""
+        self.languages = self.get_languages()
+        if self.languages:
+           self.language = self.languages[0]
+           self.load_language()
 
     def get_languages(self):
         files = []              
         for file in os.listdir(self.languages_path):
             if file.endswith(".xml"):
-                files.append(file)
+                files.append(file.replace(".xml", ""))
         return files
 
-    def load_language(self, language):
-        file="{0}.xml".format(language)
-        if file in self.get_languages():
-            self.language = language
-            file = os.path.join(self.languages_path, file)
-            doc = ET.parse(file)
-            root = doc.getroot()
+    def load_language(self):
+        file = os.path.join(self.languages_path, "{0}.xml".format(self.language))
+        doc = ET.parse(file)
+        root = doc.getroot()
+        if self.width ==-1:
             self.width = int(root.get("width"))
+        if self.location_x ==-1: 
             self.location_x = int(root.get("locationX"))
+        if self.location_y ==-1:
             self.location_y = int(root.get("locationY"))
-            self.entry_field = self.get_block(root.find("EntryField"))
-            self.input_block = self.get_block(root.find("InputBlock"))
-            self.general_buttons = self.get_block(root.find("GeneralButtons"))
-            self.height += self.entry_field["height"]
-            self.height += self.input_block["height"]
-            self.height += self.general_buttons["height"]
+        self.entry_field = self.get_block(root.find("EntryField"))
+        self.input_block = self.get_block(root.find("InputBlock"))
+        self.general_buttons = self.get_block(root.find("GeneralButtons"))
+        if self.h1 != -1:
+            self.entry_field["height"] = self.h1
+        if self.h2 != -1:
+            self.input_block["height"] = self.h2
+        if self.h3 != -1:
+            self.general_buttons["height"] = self.h3
+        self.height += self.entry_field["height"]
+        self.height += self.input_block["height"]
+        self.height += self.general_buttons["height"]
 
     def get_block(self, block):
         result = {}
@@ -120,10 +134,16 @@ class Keyboard(object):
                 result["size"] = float(el.get("size"))
         elif el.tag == "field":
             result["control"] = "field"
-            if el.get("type") == "line":
-                result["type"] = "line"
-                result["size"] = float(el.get("size"))
-            elif el.get("type") == "multiline":                
+            if not self.multiline:
+                if el.get("type") == "line":
+                    self.multiline = False
+                    result["type"] = "line"
+                    result["size"] = float(el.get("size"))
+                elif el.get("type") == "multiline":                
+                    self.multiline = True
+                    result["type"] = "multiline"
+                    result["size"] = float(el.get("size"))
+            else:
                 result["type"] = "multiline"
                 result["size"] = float(el.get("size"))
         return result
@@ -142,5 +162,53 @@ class Keyboard(object):
             self.numbers = True
             self.uppercase = False
 
+    def switch_language(self):
+        if len(self.languages)>1:
+            i = self.languages.index(self.language)
+            if i+1 == len(self.languages):
+                self.language = self.languages[0]
+            else:
+                self.language = self.languages[i+1]
+        self.uppercase = False
+        self.load_language()
+
+    def get_entry_field_rows(self):
+        return self.entry_field['rows']
+
+    def get_input_block_rows(self):
+        rows = None
+        if not self.numbers:
+            rows=self.input_block['LanguareBlock']["rows"]
+        else:
+            rows=self.input_block['NumbersKeyboard']["rows"]
+        return rows
+
+    def get_general_buttons_rows(self):
+        return self.general_buttons['rows']
+
     def switch_languare(self, value):
         self.languare = value
+
+    def get_entry_field_height(self):
+        return self.entry_field['height']
+
+    def get_input_block_height(self):
+        h = 0
+        if not self.numbers:
+            h=self.input_block['height']
+        else:
+            h=self.input_block['height']
+        return h
+
+    def get_general_buttons_height(self):
+        return self.general_buttons['height']
+
+    def get_entry_field_y(self):
+        return 0
+
+    def get_input_block_y(self):
+        return self.get_entry_field_height()
+
+    def get_general_buttons_y(self):
+        return self.get_entry_field_height()+self.get_input_block_height()
+
