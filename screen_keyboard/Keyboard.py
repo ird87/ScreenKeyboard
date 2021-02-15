@@ -1,31 +1,42 @@
 import os
 from lxml import etree as ET
 
-def icon_path(name):
-    file = os.path.join(os.getcwd(), "attachments", name)  
-    return file
-
-def file_or_empty(file): 
-    if os.path.isfile(icon_path(file)):
-        return file
+def set_or_default(d, value, default):
+    if value in d:
+        return d[value]
     else:
-        return ""
+        return default
 
 class Keyboard(object):
     """docstring for ClassName"""
-    def __init__(self, w, h1, h2, h3, lx, ly, multiline):
+    def __init__(self, setting):
         super(Keyboard, self).__init__()
-        self.languages_path = os.path.join(os.getcwd(), "languages")  
-        self.width=w
+
         self.height=0
-        self.h1 = h1
-        self.h2 = h2
-        self.h3 = h3
-        self.location_x = lx
-        self.location_y = ly
+        self.setting = setting
+
+        self.multiline = False
+        self.font=set_or_default(self.setting, "font", "Helvetica") 
+        self.font_size = {
+           "normal" : set_or_default(self.setting, "font_size", 16),
+           "small" : set_or_default(self.setting, "font_size", 10),
+           "large" : set_or_default(self.setting, "font_size", 20),
+        } 
+        self.attachments_path = set_or_default(self.setting, "self.icon_path", os.path.join(os.path.dirname(os.path.realpath(__file__)), "attachments")) 
+        self.languages_path = set_or_default(self.setting, "languages_path", os.path.join(os.path.dirname(os.path.realpath(__file__)), "languages"))
+        os.path.dirname(os.path.realpath(__file__))
+        self.b_style = {
+        "b_foreground_!active" : set_or_default(self.setting, "b_foreground_!active", "#ffffff"),
+        "b_foreground_pressed": set_or_default(self.setting, "b_foreground_pressed", "#ffffff"),
+        "b_foreground_active": set_or_default(self.setting, "b_foreground_active", "#ffffff"),
+        "b_background_!active": set_or_default(self.setting, "b_background_!active", "#232526"),
+        "b_background_pressed": set_or_default(self.setting, "b_background_pressed", "#484a4b"),
+        "b_background_active": set_or_default(self.setting, "b_background_active", "#484a4b"),
+        }
+
         self.uppercase = False
         self.numbers = False
-        self.multiline = multiline
+        
         self.entry_field = {}
         self.input_block = {}
         self.general_buttons = {}
@@ -46,21 +57,16 @@ class Keyboard(object):
         file = os.path.join(self.languages_path, "{0}.xml".format(self.language))
         doc = ET.parse(file)
         root = doc.getroot()
-        if self.width ==-1:
-            self.width = int(root.get("width"))
-        if self.location_x ==-1: 
-            self.location_x = int(root.get("locationX"))
-        if self.location_y ==-1:
-            self.location_y = int(root.get("locationY"))
+        self.width=set_or_default(self.setting, "w", int(root.get("width")))
+        self.location_x = set_or_default(self.setting, "lx", int(root.get("locationX"))) 
+        self.location_y = set_or_default(self.setting, "ly", int(root.get("locationY"))) 
+
         self.entry_field = self.get_block(root.find("EntryField"))
         self.input_block = self.get_block(root.find("InputBlock"))
         self.general_buttons = self.get_block(root.find("GeneralButtons"))
-        if self.h1 != -1:
-            self.entry_field["height"] = self.h1
-        if self.h2 != -1:
-            self.input_block["height"] = self.h2
-        if self.h3 != -1:
-            self.general_buttons["height"] = self.h3
+        self.entry_field["height"] = set_or_default(self.setting, "h1", self.entry_field["height"])  
+        self.input_block["height"] = set_or_default(self.setting, "h2", self.input_block["height"])  
+        self.general_buttons["height"] = set_or_default(self.setting, "h3", self.general_buttons["height"]) 
         self.height += self.entry_field["height"]
         self.height += self.input_block["height"]
         self.height += self.general_buttons["height"]
@@ -98,7 +104,7 @@ class Keyboard(object):
             if el.get("type") == "apply":                
                 result["type"] = "apply"
                 result["text"] = el.get("text")
-                result["icon"] = file_or_empty(el.get("icon"))
+                result["icon"] = self.file_or_empty(el.get("icon"))
                 result["size"] = float(el.get("size"))
             elif el.get("type") == "input":
                 result["type"] = "input"
@@ -112,8 +118,8 @@ class Keyboard(object):
             elif el.get("type") == "turn":
                 result["type"] = "turn"
                 result["name"] = el.get("name")
-                result["iconTurnOn"] = file_or_empty(el.get("iconTurnOn"))
-                result["iconTurnOff"] = file_or_empty(el.get("iconTurnOff"))
+                result["iconTurnOn"] = self.file_or_empty(el.get("iconTurnOn"))
+                result["iconTurnOff"] = self.file_or_empty(el.get("iconTurnOff"))
                 result["textTurnOn"] = el.get("textTurnOn")
                 result["textTurnOff"] = el.get("textTurnOff")
                     
@@ -122,30 +128,26 @@ class Keyboard(object):
             elif el.get("type") == "languare":
                 result["type"] = "languare"
                 result["text"] = el.get("text")
-                result["icon"] = file_or_empty(el.get("icon"))
+                result["icon"] = self.file_or_empty(el.get("icon"))
                 result["name"] = el.get("name")                
                 result["size"] = float(el.get("size"))
             elif el.get("type") == "action":
                 result["type"] = "action"
                 result["name"] = el.get("name")  
                 result["text"] = el.get("text")
-                result["icon"] = file_or_empty(el.get("icon"))              
+                result["icon"] = self.file_or_empty(el.get("icon"))              
                 result["action"] = el.get("action")   
                 result["size"] = float(el.get("size"))
         elif el.tag == "field":
-            result["control"] = "field"
-            if not self.multiline:
-                if el.get("type") == "line":
-                    self.multiline = False
-                    result["type"] = "line"
-                    result["size"] = float(el.get("size"))
-                elif el.get("type") == "multiline":                
-                    self.multiline = True
-                    result["type"] = "multiline"
-                    result["size"] = float(el.get("size"))
-            else:
+            result["control"] = "field"            
+            if el.get("type") == "line":
+                self.multiline = set_or_default(self.setting, "multiline", False)
+                result["type"] = "line"
+            elif el.get("type") == "multiline":                
+                self.multiline = set_or_default(self.setting, "multiline", True)
                 result["type"] = "multiline"
-                result["size"] = float(el.get("size"))
+            result["size"] = float(el.get("size"))
+
         return result
 
     def switch_case(self):
@@ -212,3 +214,12 @@ class Keyboard(object):
     def get_general_buttons_y(self):
         return self.get_entry_field_height()+self.get_input_block_height()
 
+    def icon_path(self, name):
+        file = os.path.join(self.attachments_path, name)  
+        return file
+
+    def file_or_empty(self, file): 
+        if os.path.isfile(self.icon_path(file)):
+            return file
+        else:
+            return ""

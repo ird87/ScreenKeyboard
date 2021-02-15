@@ -1,0 +1,5 @@
+evdev==1.4.0
+lxml==4.6.2
+Pillow==8.1.0
+python-xlib==0.29
+six==1.15.0

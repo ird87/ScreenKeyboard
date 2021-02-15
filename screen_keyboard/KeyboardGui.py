@@ -1,15 +1,16 @@
 from tkinter import *
 from tkinter.scrolledtext import ScrolledText
+from tkinter import ttk
 from PIL import Image, ImageTk
-from Keyboard import Keyboard, icon_path
+from Keyboard import Keyboard
 
 class KeyboardGui(Tk):
 
-    def __init__(self, parent, w, h1, h2, h3, lx, ly, multiline):
+    def __init__(self, parent, setting):
         Tk.__init__(self,parent)
         self.parent = parent
         self.value = ""
-        self.k = Keyboard(w, h1, h2, h3, lx, ly, multiline)
+        self.k = Keyboard(setting)
         if not self.k.language:
             return
         self.initialize()
@@ -36,9 +37,34 @@ class KeyboardGui(Tk):
         self.reload_keyboard()
 
     def reload_keyboard(self):
+        self.reload_styles()
         self.reload_entry_field()
         self.reload_input_block()
         self.reload_general_buttons()
+
+    def reload_styles(self):
+        style_normal_center = ttk.Style()
+        style_small_bottom = ttk.Style() 
+        style_normal_bottom = ttk.Style()  
+
+        style_normal_center.map("ScreenButtonNormalCenter.TButton",
+           foreground=[('!active', self.k.b_style["b_foreground_!active"]),('pressed', self.k.b_style["b_foreground_pressed"]), ('active', self.k.b_style["b_foreground_active"])],
+            background=[ ('!active',self.k.b_style["b_background_!active"]),('pressed', self.k.b_style["b_background_pressed"]), ('active', self.k.b_style["b_background_active"])]
+            )
+               
+        style_small_bottom.map("ScreenButtonSmallBottom.TButton",
+           foreground=[('!active', self.k.b_style["b_foreground_!active"]),('pressed', self.k.b_style["b_foreground_pressed"]), ('active', self.k.b_style["b_foreground_active"])],
+            background=[ ('!active',self.k.b_style["b_background_!active"]),('pressed', self.k.b_style["b_background_pressed"]), ('active', self.k.b_style["b_background_active"])]
+            )
+              
+        style_normal_bottom.map("ScreenButtonNormalCenterBottom.TButton",
+           foreground=[('!active', self.k.b_style["b_foreground_!active"]),('pressed', self.k.b_style["b_foreground_pressed"]), ('active', self.k.b_style["b_foreground_active"])],
+            background=[ ('!active',self.k.b_style["b_background_!active"]),('pressed', self.k.b_style["b_background_pressed"]), ('active', self.k.b_style["b_background_active"])]
+            )
+
+        style_normal_center.configure('ScreenButtonNormalCenter.TButton', font=(self.k.font, self.k.font_size["normal"]), anchor=CENTER)
+        style_small_bottom.configure('ScreenButtonSmallBottom.TButton', font=(self.k.font, self.k.font_size["small"]), anchor=S)
+        style_normal_bottom.configure('ScreenButtonNormalCenterBottom.TButton', font=(self.k.font, self.k.font_size["normal"]), anchor=S)
 
     def reload_entry_field(self):
         frame_h = self.k.get_entry_field_height()        
@@ -46,13 +72,15 @@ class KeyboardGui(Tk):
         row_h = frame_h / len(rows) 
         self.entry_field_frame = self.reload_frame(self.entry_field_base_frame, self.entry_field_frame, frame_h)
         self.create_rows(self.entry_field_frame, rows, row_h)
+        self.entry.focus()
 
     def reload_input_block(self):
         frame_h = self.k.get_input_block_height()
         rows = self.k.get_input_block_rows()
         row_h = frame_h / len(rows) 
         self.input_block_frame = self.reload_frame(self.input_block_base_frame, self.input_block_frame, frame_h)
-        self.create_rows(self.input_block_frame, rows, row_h)        
+        self.create_rows(self.input_block_frame, rows, row_h)  
+        self.entry.focus()      
 
     def reload_general_buttons(self):
         frame_h = self.k.get_general_buttons_height()
@@ -60,6 +88,7 @@ class KeyboardGui(Tk):
         row_h = frame_h / len(rows) 
         self.general_buttons_frame = self.reload_frame(self.general_buttons_base_frame, self.general_buttons_frame, frame_h)
         self.create_rows(self.general_buttons_frame, rows, row_h)
+        self.entry.focus()
 
     def reload_frame(self, base_frame, frame, h):
         if not frame is None:
@@ -98,9 +127,9 @@ class KeyboardGui(Tk):
                     self.create_btn_with_text(frame, el["text"], x, y, w, h, self.apply)
             elif el["type"] == "input":
                 if not self.k.uppercase:
-                    self.create_btn_with_text(frame, el["value1"], x, y, w, h, lambda k=el["value1"]: self.input(k))
+                    self.create_btn_with_text(frame, el["value1"], x, y, w, h, lambda k=el["value1"]: self.input(k),"ScreenButtonNormalCenter.TButton")
                 else:
-                    self.create_btn_with_text(frame, el["value2"], x, y, w, h, lambda k=el["value2"]: self.input(k))
+                    self.create_btn_with_text(frame, el["value2"], x, y, w, h, lambda k=el["value2"]: self.input(k),"ScreenButtonNormalCenter.TButton")
             elif el["type"] == "turn":
                 if el["iconTurnOn"] and el["iconTurnOff"]:
                     if el["turnTarget"]=="uppercase":
@@ -116,24 +145,24 @@ class KeyboardGui(Tk):
                 else:
                     if el["turnTarget"]=="uppercase":
                         if not self.k.uppercase:
-                            self.create_btn_with_text(frame, el["textTurnOff"], x, y, w, h, self.switch_case)
+                            self.create_btn_with_text(frame, el["textTurnOff"], x, y, w, h, self.switch_case,"ScreenButtonNormalCenterBottom.TButton")
                         else:
-                            self.create_btn_with_text(frame, el["textTurnOn"], x, y, w, h, self.switch_case)
+                            self.create_btn_with_text(frame, el["textTurnOn"], x, y, w, h, self.switch_case,"ScreenButtonNormalCenterBottom.TButton")
                     elif el["turnTarget"]=="numbers":
                         if not self.k.numbers:
-                            self.create_btn_with_text(frame, el["textTurnOff"], x, y, w, h, self.switch_input_keyboard)
+                            self.create_btn_with_text(frame, el["textTurnOff"], x, y, w, h, self.switch_input_keyboard,"ScreenButtonSmallBottom.TButton")
                         else:
-                            self.create_btn_with_text(frame, el["textTurnOn"], x, y, w, h, self.switch_input_keyboard)
+                            self.create_btn_with_text(frame, el["textTurnOn"], x, y, w, h, self.switch_input_keyboard,"ScreenButtonSmallBottom.TButton")
             elif el["type"] == "languare":
                 if el["icon"]:
                     self.create_btn_with_icon(frame, el["icon"], x, y, w, h, self.switch_language)
                 else:
-                    self.create_btn_with_text(frame, el["text"], x, y, w, h, self.switch_language)
+                    self.create_btn_with_text(frame, self.k.language, x, y, w, h, self.switch_language,"ScreenButtonNormalCenterBottom.TButton")
             elif el["type"] == "action":
                 if el["icon"]:
                     self.create_btn_with_icon(frame, el["icon"], x, y, w, h, lambda a=el["action"]: self.action(a))
                 else:
-                    self.create_btn_with_text(frame, el["text"], x, y, w, h, lambda a=el["action"]: self.action(a))         
+                    self.create_btn_with_text(frame, el["text"], x, y, w, h, lambda a=el["action"]: self.action(a),"ScreenButtonNormalCenterBottom.TButton")         
         elif el["control"]=="field":
             if el["type"]=="line":
                 self.create_entry_field(frame, x, y, w, h) 
@@ -141,16 +170,16 @@ class KeyboardGui(Tk):
                 self.create_text_field(frame, x, y, w, h) 
 
     def create_btn_with_icon(self, frame, icon, x, y, w, h, command):
-        image = Image.open(icon_path(icon))
-        maxsize = (w-5, h-5)
+        image = Image.open(self.k.icon_path(icon))
+        maxsize = (w*0.9, h*0.7)
         image.thumbnail(maxsize, Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
-        button = Button(frame, image=photo, command=command)
+        button = ttk.Button(frame, image=photo, command=command, style="ScreenButton.TButton")
         button.photo = photo
         button.place(x=x,y=y, width=w, height=h)
 
-    def create_btn_with_text(self, frame, text, x, y, w, h, command):
-        button = Button(frame, text=text, command=command)
+    def create_btn_with_text(self, frame, text, x, y, w, h, command, style):       
+        button = ttk.Button(frame, text=text, command=command, style=style)
         button.place(x=x,y=y, width=w, height=h)
 
     def create_entry_field(self, frame, x, y, w, h):
@@ -197,7 +226,6 @@ class KeyboardGui(Tk):
                     self.entry.delete("sel.first", "sel.last")
                 except:
                     insert = self.entry.index("insert")
-                    print(insert)
                     self.entry.delete(insert-1)   
         elif a=="enter":
             if self.k.multiline:
@@ -213,18 +241,22 @@ class KeyboardGui(Tk):
         except:
             pass
         self.entry.insert(INSERT, k)
+        self.entry.focus()
 
     def switch_case(self):
         self.k.switch_case()
         self.reload_input_block()
+        self.reload_general_buttons()
 
     def switch_input_keyboard(self):
         self.k.switch_input_keyboard()
         self.reload_input_block()
+        self.reload_general_buttons()
 
     def switch_language(self):
         self.k.switch_language()
         self.reload_input_block()
+        self.reload_general_buttons()
 
     def apply(self):
         self.get_text()

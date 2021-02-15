@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScreenKeyboard width="480" locationX="0" locationY="0" languare="en">
+<ScreenKeyboard width="480" locationX="0" locationY="0" languare="EN">
 	<EntryField height="30">
 		<row>
 			<field type="line" size="11.0"></field>
@@ -88,17 +88,17 @@
 			</row>	
 		</NumbersKeyboard>
 	</InputBlock>
-	<GeneralButtons height = "30">
+	<GeneralButtons height = "40">
 		<row>
-			<button name="shift" type="turn" turnTarget="uppercase" textTurnOn="" textTurnOff="" iconTurnOn ="shiftOn" iconTurnOff ="shiftOff" size="1.0"></button>
-			<button name="charToNum" type="turn" turnTarget="numbers" textTurnOn="" textTurnOff="" iconTurnOn ="numbersOn" iconTurnOff ="numbersOff" size="1.0"></button>
-			<button name="languare" type="languare" text="" icon="languare" size="1.0"></button>
+			<button name="shift" type="turn" turnTarget="uppercase" textTurnOn="⬆" textTurnOff="⇧" iconTurnOn ="shiftOn" iconTurnOff ="shiftOff" size="1.0"></button>
+			<button name="charToNum" type="turn" turnTarget="numbers" textTurnOn="1,2&#xA;3,4" textTurnOff="a,b&#xA;c,d" iconTurnOn ="numbersOn" iconTurnOff ="numbersOff" size="1.0"></button>
+			<button name="languare" type="languare" icon="languare" size="1.0"></button>
 			<button name="space" type="input" value=" " size="4.0"></button>
 			<button name="x1" type="input" value="@" size="1.0"></button>
 			<button name="x2" type="input" value="," size="1.0"></button>
 			<button name="x3" type="input" value="." size="1.0"></button>
-			<button name="backspace" type="action" text="" icon="backspace" action="backspace" size="1.0"></button>
-			<button name="enter" type="action" text="" icon="enter" action="enter" size="1.0"></button>
+			<button name="backspace" type="action" text="⌫" icon="backspace" action="backspace" size="1.0"></button>
+			<button name="enter" type="action" text="⏎" icon="enter" action="enter" size="1.0"></button>
 		</row>
 	</GeneralButtons>
 </ScreenKeyboard>
