@@ -3,13 +3,13 @@
 from KeyboardGui import KeyboardGui as keybord
 app=None
 
-def run(setting={
+def run(settings={
             # "w" : 1600, 
             # "h1" : -1, 
             # "h2" : -1, 
             # "h3" : -1, 
-            "lx" : 1000, 
-            "ly" : 400, 
+            "lx" : 300, 
+            "ly" : 300, 
             # "multiline" : False, 
             # "font" : 'Helvetica', 
             # "font_size" : 12, 
@@ -24,7 +24,7 @@ def run(setting={
             }
         ):
     global app
-    app = keybord(None, setting)    
+    app = keybord(None, settings)    
     app.mainloop() #this will run until it closes
     print(app.value)    
 

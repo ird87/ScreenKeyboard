@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScreenKeyboard width="480" locationX="130" locationY="800" languare="RU">
+    <Font name="Helvetica" small="10" normal="16" large="20"></Font>
 	<EntryField height="30">
 		<row>
 			<field type="line" size="11.0"></field>

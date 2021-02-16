@@ -6,11 +6,11 @@ from Keyboard import Keyboard
 
 class KeyboardGui(Tk):
 
-    def __init__(self, parent, setting):
+    def __init__(self, parent, settings):
         Tk.__init__(self,parent)
         self.parent = parent
         self.value = ""
-        self.k = Keyboard(setting)
+        self.k = Keyboard(settings)
         if not self.k.language:
             return
         self.initialize()
