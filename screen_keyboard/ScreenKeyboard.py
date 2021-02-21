@@ -1,6 +1,10 @@
 #!/usr/bin/python
 # coding=utf-8
-from keyboard import KeyboardGui as k
+try:
+    from .keyboard import KeyboardGui as k
+except: 
+    from keyboard import KeyboardGui as k
+
 app=None
 
 def run(settings={
