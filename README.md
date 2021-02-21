@@ -1,8 +1,6 @@
 <h1 align="center">ScreenKeyboard</h1>
 <h2 align="center">
 
-[![Mentioned in Awesome Vue.js](https://awesome.re/mentioned-badge.svg)](https://github.com/vuejs/awesome-vue)
-
 </h2>
 
 <p align="center">
@@ -31,8 +29,8 @@
 ## Как использовать
 
 ```
-from ScreenKeyboard import run
-string result = run(settings={})
+from screen_keyboard import run
+result = run(settings={})
 
 ```
 Клавиатура закрывается по клику вне ее пределов и возвращает пустое значение.
@@ -96,7 +94,10 @@ string result = run(settings={
     Может быть с иконкой **iconTurnOn**/**iconTurnOff** или подписью **textTurnOn**/**textTurnOff**. 
   - **languare** - переключает все добавленные языки. Отображает название текущего.
   - **action** - выполняет действие, имеет параметр **action**, который может быть *backspace* или *enter*.
-    Может быть с иконкой **icon** или подписью **text**. 
+    Может быть с иконкой **icon** или подписью **text**.
+
+В разметке для любой кнопки можно указать **font-size** ("Small", "Normal", "Large") 
+и положение **align** ("Top", "Center", "Bottom"). Если не указано: "Normal" + "Center"
 
 ### Поле ввода
 
@@ -137,8 +138,7 @@ string result = run(settings={
 
 ```
 
-В разметке для каждого элемента можно указать **font-size** ("small", "normal", "large") 
-и положение **align** ("top", "center", "bottom"). Если не указано: "normal" + "center"
+
 
 ### Путь к файлу с иконками для кнопок
 

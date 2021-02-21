@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
-from KeyboardGui import KeyboardGui as keybord
+from keyboard import KeyboardGui as k
 app=None
 
 def run(settings={
@@ -10,6 +10,7 @@ def run(settings={
             # "h3" : -1, 
             "lx" : 300, 
             "ly" : 300, 
+            # "b_customize":False, 
             # "multiline" : False, 
             # "font" : 'Helvetica', 
             # "font_size" : 12, 
@@ -24,7 +25,7 @@ def run(settings={
             }
         ):
     global app
-    app = keybord(None, settings)    
+    app = k.KeyboardGui(None, settings)    
     app.mainloop() #this will run until it closes
     print(app.value)    
 

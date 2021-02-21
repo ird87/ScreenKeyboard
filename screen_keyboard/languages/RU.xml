@@ -90,16 +90,16 @@
 		</NumbersKeyboard>
 	</InputBlock>
 	<GeneralButtons height = "40">
-		<row>
-			<button name="shift" type="turn" turnTarget="uppercase" textTurnOn="⬆" textTurnOff="⇧" iconTurnOn ="shiftOn" iconTurnOff ="shiftOff" size="1.0"></button>
-            <button name="charToNum" type="turn" turnTarget="numbers" textTurnOn="1,2&#xA;3,4" textTurnOff="a,b&#xA;c,d" iconTurnOn ="numbersOn" iconTurnOff ="numbersOff" size="1.0"></button>
-            <button name="languare" type="languare" text="" icon="languare" size="1.0"></button>
+        <row>
+            <button name="shift" type="turn" turnTarget="uppercase" textTurnOn="⬆" textTurnOff="⇧" iconTurnOn ="shiftOn" iconTurnOff ="shiftOff" size="1.0" align="Bottom"></button>
+            <button name="charToNum" type="turn" turnTarget="numbers" textTurnOn="1,2&#xA;3,4" textTurnOff="a,b&#xA;c,d" iconTurnOn ="numbersOn" iconTurnOff ="numbersOff" size="1.0" font-size="Small" align="Bottom"></button>
+            <button name="languare" type="languare" icon="languare" size="1.0" align="Bottom"></button>
             <button name="space" type="input" value=" " size="4.0"></button>
             <button name="x1" type="input" value="@" size="1.0"></button>
             <button name="x2" type="input" value="," size="1.0"></button>
             <button name="x3" type="input" value="." size="1.0"></button>
-            <button name="backspace" type="action" text="⌫" icon="backspace" action="backspace" size="1.0"></button>
-            <button name="enter" type="action" text="⏎" icon="enter" action="enter" size="1.0"></button>
-		</row>
-	</GeneralButtons>
+            <button name="backspace" type="action" text="⌫" icon="backspace" action="backspace" size="1.0" align="Bottom"></button>
+            <button name="enter" type="action" text="⏎" icon="enter" action="enter" size="1.0" align="Bottom"></button>
+        </row>
+    </GeneralButtons>
 </ScreenKeyboard>
