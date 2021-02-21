@@ -152,12 +152,7 @@ class Keyboard(object):
                 result["style"] = self.set_btn_style(el)
         elif el.tag == "field":
             result["control"] = "field"            
-            if el.get("type") == "line":
-                self.multiline = set_or_default(self.settings, "multiline", False)
-                result["type"] = "line"
-            elif el.get("type") == "multiline":                
-                self.multiline = set_or_default(self.settings, "multiline", True)
-                result["type"] = "multiline"
+            result["type"] = self.set_multiline(el)
             result["size"] = float(el.get("size"))
             result["style"] = self.set_btn_style(el)
 
@@ -172,6 +167,25 @@ class Keyboard(object):
             align = "Center"
         style = "ScreenButton{0}{1}".format(font_size, align)
         return style
+
+    def set_multiline(self, el):
+        line_type = "line"
+        multiline = False
+        val = el.get("type")
+        if val in ["line", "multiline"]:
+            if val == "multiline":
+                multiline = True
+        multiline =  set_or_default(self.settings, "multiline", multiline)
+        if multiline:
+            self.multiline = True
+            line_type = "multiline"
+        else:
+            self.multiline = False
+            line_type = "line"
+        return line_type
+
+
+
 
     def switch_case(self):
         if self.uppercase:

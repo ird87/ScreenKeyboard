@@ -31,7 +31,7 @@ def run(settings={
     global app
     app = k.KeyboardGui(None, settings)    
     app.mainloop() #this will run until it closes
-    print(app.value)    
+    return app.value
 
 def end():
     global app
