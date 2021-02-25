@@ -20,10 +20,9 @@
 <p align="center">
 <img src="./readme_assets/Keyboard.gif" width="100%"></p>
 
-Экранная клавиатура была разработана для raspberry pi 3 с сенсорным экраном 480х320. 
+Экранная клавиатура была разработана для raspberry pi 3 с сенсорным экраном 480х320.
 По-умолчанию, она соответсвует этому размеру и отображается в верхнем левом углу экрана с некоторыми отступами;
-Содержит однострочное поле для ввода и два языка: русский и английский, 
-а так же цифровую клавиатуру в каждом из них.
+Содержит однострочное поле для ввода и два языка: русский и английский, а так же цифровую клавиатуру в каждом из них.
 Впрочем она полностью настраиваемая:
 
 ## Как использовать
@@ -45,7 +44,7 @@ result = run(settings={
 
 ```
 
-Клавиатура закрывается по клику вне ее пределов или кнопкой подтверждения ввода.
+Клавиатура закрывается по клику вне ее пределов или кнопкой подтверждения ввода.  
 Всегда возвращает словарь с введенным текстом *value* и информацией был ли ввод подтвержден или отменен *result*
 
 ```
@@ -217,33 +216,33 @@ string result = run(settings={
 
 ## Из командной строки
 
-Все настройки доступные при импорте, доступны и при вызове через коммандную строку/
+Все настройки доступные при импорте, доступны и при вызове через коммандную строку
 
 ```
 
 python3 ScreenKeyboard.py -[option]
 
 ```
-**-help** - full options list
-**-t** - current text
-**-w** - width
-**-h1** - EntryField height
-**-h2** - InputBlock height
-**-h3** - GeneralButtons height
-**-x** - location x
-**-y** - location y
-**-c** - b_customize
-**-m** - multiline
-**-fname** - font family name
-**-fsize** - font sizes
-**-i** - icon path
-**-l** - languages path
-**-bfu** - button foreground unactive color
-**-bfp** - button foreground pressed color
-**-bfa** - button foreground active color
-**-bbu** - button background unactive color
-**-bbp** - button background pressed color
-**-bba** - button background active color
+**-help** - full options list  
+**-t** - current text  
+**-w** - width  
+**-h1** - EntryField height  
+**-h2** - InputBlock height  
+**-h3** - GeneralButtons height  
+**-x** - location x  
+**-y** - location y  
+**-c** - b_customize  
+**-m** - multiline  
+**-fname** - font family name  
+**-fsize** - font sizes  
+**-i** - icon path  
+**-l** - languages path  
+**-bfu** - button foreground unactive color  
+**-bfp** - button foreground pressed color  
+**-bfa** - button foreground active color  
+**-bbu** - button background unactive color  
+**-bbp** - button background pressed color  
+**-bba** - button background active color  
 
 Результаты можно забрать из *environment variables*:
 
