@@ -244,3 +244,12 @@ python3 ScreenKeyboard.py -[option]
 **-bbu** - button background unactive color
 **-bbp** - button background pressed color
 **-bba** - button background active color
+
+Результаты можно забрать из *environment variables*:
+
+```
+
+"screen_keyboard_value"
+"screen_keyboard_result"
+
+```
