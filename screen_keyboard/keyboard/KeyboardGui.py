@@ -2,14 +2,15 @@ from tkinter import *
 from tkinter.scrolledtext import ScrolledText
 from tkinter import ttk
 from PIL import Image, ImageTk
-from .Keyboard import Keyboard
+from .Keyboard import Keyboard, set_or_default
 
 class KeyboardGui(Tk):
 
     def __init__(self, parent, settings):
         Tk.__init__(self,parent)
         self.parent = parent
-        self.value = ""
+        self.value = set_or_default(settings, "text", "")
+        self.result = False
         self.k = Keyboard(settings)
         if not self.k.language:
             return
@@ -68,7 +69,6 @@ class KeyboardGui(Tk):
         style_small_top.map = self.set_colors_for_style("ScreenButtonSmallTop")
         style_small_top.map = self.set_colors_for_style("ScreenButtonSmallCenter")
         style_small_top.map = self.set_colors_for_style("ScreenButtonSmallBottom")
-
         style_small_center.configure('ScreenButtonSmallTopTButton', font=(self.k.font, self.k.font_size["small"]), anchor=N)
         style_small_center.configure('ScreenButtonSmallCenter.TButton', font=(self.k.font, self.k.font_size["small"]), anchor=CENTER)
         style_small_center.configure('ScreenButtonSmallBottom.TButton', font=(self.k.font, self.k.font_size["small"]), anchor=S)
@@ -220,11 +220,13 @@ class KeyboardGui(Tk):
     def create_entry_field(self, frame, x, y, w, h):
         self.entry = Entry(frame)
         self.entry.place(x=x+1,y=y+1, width=w-2, height=h-2)
+        self.entry.insert(END, self.value)
         self.entry.focus()
 
     def create_text_field(self, frame, x, y, w, h):
         self.entry = ScrolledText (frame)
         self.entry.place(x=x+1,y=y+1, width=w-2, height=h-2)
+        self.entry.insert(END, self.value)
         self.entry.focus()
 
     def width(self, size, used_width=0, last=False):
@@ -243,6 +245,7 @@ class KeyboardGui(Tk):
             w.bind("<FocusOut>", self.focus_out)
 
     def exit(self):
+        self.get_text()
         self.top.destroy()  
         self.destroy()
 
@@ -295,6 +298,7 @@ class KeyboardGui(Tk):
 
     def apply(self):
         self.get_text()
+        self.result = True
         self.top.destroy()  
         self.destroy()
 

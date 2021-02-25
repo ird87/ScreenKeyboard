@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 from lxml import etree as ET
 
 def set_or_default(d, value, default):
@@ -62,10 +63,11 @@ class Keyboard(object):
         self.location_y = set_or_default(self.settings, "ly", int(root.get("locationY"))) 
         font = root.find("Font")
         self.font=set_or_default(self.settings, "font", font.get("name")) 
+        font_size = set_or_default(self.settings, "font_size", [])
         self.font_size = {
-           "normal" : set_or_default(self.settings, "font_size", int(font.get("normal"))),
-           "small" : set_or_default(self.settings, "font_size", int(font.get("small"))),
-           "large" : set_or_default(self.settings, "font_size", int(font.get("large"))),
+           "normal" : set_or_default(font_size, "normal", int(font.get("normal"))),
+           "small" : set_or_default(font_size, "small", int(font.get("small"))),
+           "large" : set_or_default(font_size, "large", int(font.get("large"))),
         } 
 
         self.entry_field = self.get_block(root.find("EntryField"))

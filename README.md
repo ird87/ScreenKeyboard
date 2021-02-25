@@ -28,13 +28,34 @@
 
 ## Как использовать
 
+### Через импорт
 ```
+
 from screen_keyboard import run
 result = run(settings={})
 
 ```
-Клавиатура закрывается по клику вне ее пределов и возвращает пустое значение.
-При подтверждении ввода возвращает введенный текст в качестве переменной str
+
+Передайте текущий текст поля при вызове:
+```
+
+result = run(settings={
+    "text" : "Hello world"
+    })
+
+```
+
+Клавиатура закрывается по клику вне ее пределов или кнопкой подтверждения ввода.
+Всегда возвращает словарь с введенным текстом *value* и информацией был ли ввод подтвержден или отменен *result*
+
+```
+
+{
+"value": app.value,
+"result": app.result    //bool
+}
+
+```
 
 ## Настройка
 
@@ -43,6 +64,7 @@ result = run(settings={})
 Размеры и положения по-умолчанию можно изменить/задать в файлах разметки клавиатуры для каждого языка:
 
 ```
+
 <ScreenKeyboard width="480" locationX="0" locationY="0" languare="EN">
 ...
 <EntryField height="30">
@@ -51,11 +73,13 @@ result = run(settings={})
 ...
 <GeneralButtons height = "40">
 ...
+
 ```
 
 Или передать при вызове:
 
 ```
+
 string result = run(settings={
     "w"  : 640, 
     "h1" : 40,  // EntryField height
@@ -70,6 +94,7 @@ string result = run(settings={
 ### Добавить, удалить, изменить языки:
 
 ```
+
 string result = run(settings={
     "languages_path" : os.path.join(os.path.dirname(os.path.realpath(__file__)), "languages"),
     })
@@ -104,12 +129,15 @@ string result = run(settings={
 По-умолчанию задано в файле разметки
 
 ```
+
 <field type="line" size="11.0"></field>
+
 ```
 
 Можно изменить при вызове
 
 ```
+
 string result = run(settings={
     "multiline" : True, 
     })
@@ -121,12 +149,15 @@ string result = run(settings={
 В файле разметки:
 
 ```
+
 <Font name="Helvetica" small="10" normal="16" large="20"></Font>
+
 ```
 
 При вызове из программы:
 
 ```
+
 string result = run(settings={
     "font" : 'Helvetica', 
     "font_size" : {
@@ -143,7 +174,9 @@ string result = run(settings={
 ### Путь к файлу с иконками для кнопок
 
 ```
+
 "icon_path" : os.path.join(os.path.dirname(os.path.realpath(__file__)), "attachments"),  
+
 ```
 
 ### Настройка цветов кнопок
@@ -151,6 +184,7 @@ string result = run(settings={
 Только при вызове из программы:
 
 ```
+
 string result = run(settings={
     "b_foreground_!active":"#ffffff", 
     "b_foreground_pressed":"#ffffff",
@@ -170,6 +204,7 @@ string result = run(settings={
 **С отключенной настройкой цветов**
 
 ```
+
 string result = run(settings={
     "b_customize":False, 
     })
@@ -178,3 +213,34 @@ string result = run(settings={
 
 <p align="center">
 <img src="./readme_assets/01.png" width="100%"></p>
+
+
+## Из командной строки
+
+Все настройки доступные при импорте, доступны и при вызове через коммандную строку/
+
+```
+
+python3 ScreenKeyboard.py -[option]
+
+```
+**-help** - full options list
+**-t** - current text
+**-w** - width
+**-h1** - EntryField height
+**-h2** - InputBlock height
+**-h3** - GeneralButtons height
+**-x** - location x
+**-y** - location y
+**-c** - b_customize
+**-m** - multiline
+**-fname** - font family name
+**-fsize** - font sizes
+**-i** - icon path
+**-l** - languages path
+**-bfu** - button foreground unactive color
+**-bfp** - button foreground pressed color
+**-bfa** - button foreground active color
+**-bbu** - button background unactive color
+**-bbp** - button background pressed color
+**-bba** - button background active color
