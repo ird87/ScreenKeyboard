@@ -10,6 +10,7 @@ class KeyboardGui(Tk):
         Tk.__init__(self,parent)
         self.parent = parent
         self.value = set_or_default(settings, "text", "")
+        self.password = set_or_default(settings, "password", False)
         self.result = False
         self.k = Keyboard(settings)
         if not self.k.language:
@@ -218,7 +219,11 @@ class KeyboardGui(Tk):
         button.place(x=x,y=y, width=w, height=h)
 
     def create_entry_field(self, frame, x, y, w, h):
-        self.entry = Entry(frame)
+        self.entry = None
+        if self.password:
+            self.entry = Entry(frame, show="*")
+        else:
+            self.entry = Entry(frame)
         self.entry.place(x=x+1,y=y+1, width=w-2, height=h-2)
         self.entry.insert(END, self.value)
         self.entry.focus()

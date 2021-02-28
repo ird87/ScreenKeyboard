@@ -21,6 +21,7 @@ def run(settings={
             # "h3" : -1, 
             "lx" : 300, 
             "ly" : 300, 
+            # "password" : False,
             # "b_customize":False, 
             # "multiline" : False, 
             # "font" : 'Helvetica', 
@@ -69,14 +70,15 @@ if __name__ == '__main__':  # Если мы запускаем файл напр
     my_parser = argparse.ArgumentParser(prog='screen_keyboard',
                                     usage='%(prog)s [options] path')
     my_parser.add_argument("-t", action='store', type=str, required=False, help='current text, str')
+    my_parser.add_argument("-p", action='store_true', required=False, help='password mode (not worked in multiline mode)')
     my_parser.add_argument("-w", action='store', type=int, required=False, help='width, int')
     my_parser.add_argument("-h1", action='store', type=int, required=False, help='EntryField height, str')
     my_parser.add_argument("-h2", action='store', type=int, required=False, help='InputBlock height, str')
     my_parser.add_argument("-h3", action='store', type=int, required=False, help='GeneralButtons height, str')
     my_parser.add_argument("-x", action='store', type=int, required=False, help='location x, int')
     my_parser.add_argument("-y", action='store', type=int, required=False, help='location y, int')
-    my_parser.add_argument("-c", action='store', type=bool, required=False, help='customize, bool')
-    my_parser.add_argument("-m", action='store', type=bool, required=False, help='multiline, bool')
+    my_parser.add_argument("-c", action='store_true', required=False, help='no customization mode')
+    my_parser.add_argument("-m", action='store_true', required=False, help='multiline mode')
     my_parser.add_argument("-fname", action='store', type=str, required=False, help='font family name, str')
     my_parser.add_argument("-fsize", action='store', type=fsize_type, required=False, help='font size, str: "int, int, int" (small, normal, large)')
     my_parser.add_argument("-i", action='store', type=str, required=False, help='icon path, str')
@@ -93,6 +95,7 @@ if __name__ == '__main__':  # Если мы запускаем файл напр
     settings={}
 
     if not args.t is None: settings["text"] = args.t
+    if not args.p is None: settings["password"] = True
     if not args.w is None: settings["w"] = args.w
     if not args.h1 is None: settings["h1"] = args.h1
     if not args.h2 is None: settings["h2"] = args.h2

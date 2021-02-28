@@ -168,7 +168,19 @@ string result = run(settings={
 
 ```
 
+### Режим пароля
 
+**Не работает в режиме многострочного поля ввода**
+
+Только при вызове из программы:
+
+```
+
+string result = run(settings={
+    "password":True, 
+    })
+
+```
 
 ### Путь к файлу с иконками для кнопок
 
@@ -225,6 +237,7 @@ python3 ScreenKeyboard.py -[option]
 ```
 **-help** - full options list  
 **-t** - current text  
+**-p** - password
 **-w** - width  
 **-h1** - EntryField height  
 **-h2** - InputBlock height  
