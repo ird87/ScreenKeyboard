@@ -22,7 +22,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
     ],
-    install_requires=["evdev>=1.4.0","lxml>=4.6.2","Pillow>=8.1.0","python-xlib>=0.29","six>=1.15.0]"],
+    install_requires=["evdev>=1.4.0","lxml>=4.6.2","Pillow>=7.2.0","python-xlib>=0.29","six>=1.15.0]"],
     python_requires='>=3.5',
 )
 
