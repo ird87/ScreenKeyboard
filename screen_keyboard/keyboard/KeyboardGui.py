@@ -223,7 +223,6 @@ class KeyboardGui(Tk):
         button.place(x=x,y=y, width=w, height=h)
 
     def create_entry_field(self, frame, x, y, w, h, font):
-        print(font)
         self.entry = None
         if self.password:
             self.entry = ttk.Entry(frame, show="*", font=font)
@@ -240,14 +239,12 @@ class KeyboardGui(Tk):
         self.entry.focus()
 
     def entry_font_size(self, font_type):
-        print(font_type)
         if font_type =="EntryFontSmall":
             return TkFont.Font(name = self.k.font, size = self.k.font_size["small"])
         if font_type =="EntryFontNormal":
             return TkFont.Font(name = self.k.font, size = self.k.font_size["normal"])
         if font_type =="EntryFontLarge":
             return TkFont.Font(name = self.k.font, size = self.k.font_size["large"])
-
 
     def width(self, size, used_width=0, last=False):
         w=0
