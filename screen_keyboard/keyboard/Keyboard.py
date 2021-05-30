@@ -156,9 +156,16 @@ class Keyboard(object):
             result["control"] = "field"            
             result["type"] = self.set_multiline(el)
             result["size"] = float(el.get("size"))
-            result["style"] = self.set_btn_style(el)
+            result["font"] = self.set_entry_font(el)
 
         return result
+
+    def set_entry_font(self, el):
+        font_size = el.get("font-size")
+        if not font_size in ["Small", "Normal", "Large"]:
+            font_size = "Normal"
+        style = "EntryFont{0}".format(font_size)
+        return style
 
     def set_btn_style(self, el):
         font_size = el.get("font-size")

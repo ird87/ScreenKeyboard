@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="screen-keyboard-pkg-ird87", # Replace with your own username
-    version="0.1.4",
+    version="0.1.5",
     author="ird87",
     author_email="ird87.post.ru@gmail.com",
     description="customizable on-screen keyboard",

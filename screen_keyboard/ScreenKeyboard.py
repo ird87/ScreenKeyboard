@@ -95,15 +95,15 @@ if __name__ == '__main__':  # Если мы запускаем файл напр
     settings={}
 
     if not args.t is None: settings["text"] = args.t
-    if not args.p is None: settings["password"] = True
+    if args.p: settings["password"] = True
     if not args.w is None: settings["w"] = args.w
     if not args.h1 is None: settings["h1"] = args.h1
     if not args.h2 is None: settings["h2"] = args.h2
     if not args.h3 is None: settings["h3"] = args.h3
     if not args.x is None: settings["lx"] = args.x
     if not args.y is None: settings["ly"] = args.y
-    if not args.c is None: settings["b_customize"] = args.c
-    if not args.m is None: settings["multiline"] = args.m 
+    if args.c: settings["b_customize"] = True
+    if args.m: settings["multiline"] = True
     if not args.fname is None: settings["font"] = args.fname
     if not args.fsize is None:
         fsplit = args.fsize.split(',') 

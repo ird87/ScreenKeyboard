@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter.scrolledtext import ScrolledText
 from tkinter import ttk
+import tkinter.font as TkFont
 from PIL import Image, ImageTk
 from .Keyboard import Keyboard, set_or_default
 
@@ -61,16 +62,19 @@ class KeyboardGui(Tk):
         style_standart= ttk.Style()
         style_standart.map = self.set_colors_for_style("ScreenButton")
 
+        # Для кнопок с текстом
+
         # Для мальнького шрифта
 
         style_small_top= ttk.Style()
         style_small_center = ttk.Style()
-        style_small_bottom = ttk.Style()
+        style_small_bottom = ttk.Style()        
 
         style_small_top.map = self.set_colors_for_style("ScreenButtonSmallTop")
         style_small_top.map = self.set_colors_for_style("ScreenButtonSmallCenter")
         style_small_top.map = self.set_colors_for_style("ScreenButtonSmallBottom")
-        style_small_center.configure('ScreenButtonSmallTopTButton', font=(self.k.font, self.k.font_size["small"]), anchor=N)
+
+        style_small_center.configure('ScreenButtonSmallTop.TButton', font=(self.k.font, self.k.font_size["small"]), anchor=N)
         style_small_center.configure('ScreenButtonSmallCenter.TButton', font=(self.k.font, self.k.font_size["small"]), anchor=CENTER)
         style_small_center.configure('ScreenButtonSmallBottom.TButton', font=(self.k.font, self.k.font_size["small"]), anchor=S)
 
@@ -84,7 +88,7 @@ class KeyboardGui(Tk):
         style_normal_top.map = self.set_colors_for_style("ScreenButtonNormalCenter")
         style_normal_top.map = self.set_colors_for_style("ScreenButtonNormalBottom")
 
-        style_normal_center.configure('ScreenButtonNormalTopTButton', font=(self.k.font, self.k.font_size["normal"]), anchor=N)
+        style_normal_center.configure('ScreenButtonNormalTop.TButton', font=(self.k.font, self.k.font_size["normal"]), anchor=N)
         style_normal_center.configure('ScreenButtonNormalCenter.TButton', font=(self.k.font, self.k.font_size["normal"]), anchor=CENTER)
         style_normal_center.configure('ScreenButtonNormalBottom.TButton', font=(self.k.font, self.k.font_size["normal"]), anchor=S)
 
@@ -201,9 +205,9 @@ class KeyboardGui(Tk):
                     self.create_btn_with_text(frame, el["text"], x, y, w, h, lambda a=el["action"]: self.action(a),el["style"])         
         elif el["control"]=="field":
             if el["type"]=="line":
-                self.create_entry_field(frame, x, y, w, h) 
+                self.create_entry_field(frame, x, y, w, h, self.entry_font_size(el["font"])) 
             elif el["type"]=="multiline":
-                self.create_text_field(frame, x, y, w, h) 
+                self.create_text_field(frame, x, y, w, h, self.entry_font_size(el["font"]))
 
     def create_btn_with_icon(self, frame, icon, x, y, w, h, command):
         image = Image.open(self.k.icon_path(icon))
@@ -218,21 +222,32 @@ class KeyboardGui(Tk):
         button = ttk.Button(frame, text=text, command=command, style="{0}.TButton".format(style))
         button.place(x=x,y=y, width=w, height=h)
 
-    def create_entry_field(self, frame, x, y, w, h):
+    def create_entry_field(self, frame, x, y, w, h, font):
+        print(font)
         self.entry = None
         if self.password:
-            self.entry = Entry(frame, show="*")
+            self.entry = ttk.Entry(frame, show="*", font=font)
         else:
-            self.entry = Entry(frame)
+            self.entry = ttk.Entry(frame, font=font)
         self.entry.place(x=x+1,y=y+1, width=w-2, height=h-2)
         self.entry.insert(END, self.value)
         self.entry.focus()
 
-    def create_text_field(self, frame, x, y, w, h):
-        self.entry = ScrolledText (frame)
+    def create_text_field(self, frame, x, y, w, h, font):
+        self.entry = ScrolledText (frame, font=font)
         self.entry.place(x=x+1,y=y+1, width=w-2, height=h-2)
         self.entry.insert(END, self.value)
         self.entry.focus()
+
+    def entry_font_size(self, font_type):
+        print(font_type)
+        if font_type =="EntryFontSmall":
+            return TkFont.Font(name = self.k.font, size = self.k.font_size["small"])
+        if font_type =="EntryFontNormal":
+            return TkFont.Font(name = self.k.font, size = self.k.font_size["normal"])
+        if font_type =="EntryFontLarge":
+            return TkFont.Font(name = self.k.font, size = self.k.font_size["large"])
+
 
     def width(self, size, used_width=0, last=False):
         w=0
